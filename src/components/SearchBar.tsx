@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState } from "react";
 import '../App.css';
 
-let searchtask = [];
+var searchtask = [];
 
 type searchBarProps = {
     filterText: string

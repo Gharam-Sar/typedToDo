@@ -6,36 +6,36 @@ type ToDoProps = {
   todo: { id: number, task: string,done:boolean }
   filtertext: string
   toggle: boolean
+  setTodo:Function
 }
-export default function ToDo ({todo, filtertext, toggle}: ToDoProps){
+export default function ToDo ({todo, filtertext, toggle,setTodo}: ToDoProps){
   const handleDelete = (id:number) => {
  
-    let newtodo = [];
-    let ids = parseInt(localStorage.getItem("ids")!) - 1;
-    let displaytodo = JSON.parse(localStorage.getItem("todo")!);
+    var newtodo = [];
+    var ids = parseInt(localStorage.getItem("ids")!) - 1;
+    var displaytodo = JSON.parse(localStorage.getItem("todo")!);
     newtodo = displaytodo.slice(0, id - 1);
-    console.log(newtodo);
 
-    for (let i = id - 1; i < ids; i++) {
-      console.log(displaytodo[i]);
-      let str = displaytodo[i + 1];
+    for (var i = id - 1; i < ids; i++) {
+      var str = displaytodo[i + 1];
       str.id = i + 1;
       newtodo.push(str);
     }
-    console.log(newtodo);
 
     localStorage.setItem("todo", JSON.stringify(newtodo));
 
     localStorage.setItem("ids", ids.toString());
-    window.location.reload();
+    setTodo(newtodo);
+
 };
 const handleToggle = (id:number) => {
-              let displaytodo = JSON.parse(localStorage.getItem("todo")!);
+              var displaytodo = JSON.parse(localStorage.getItem("todo")!);
               if (displaytodo[id - 1].done) displaytodo[id - 1].done = false;
               else displaytodo[id - 1].done = true;
   
               localStorage.setItem("todo", JSON.stringify(displaytodo));
-              window.location.reload();
+              setTodo(displaytodo);
+
 };
     return (
       <div className="myDiv" key={todo.id}>
@@ -55,6 +55,7 @@ const handleToggle = (id:number) => {
             src={trash}
             style={{  }}
             height= "28px"
+            alt="trash"
           ></img>
         </h2>
         <h2></h2>

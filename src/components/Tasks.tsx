@@ -3,33 +3,33 @@ import { useState } from "react";
 import ToDo from './ToDo';
 import '../App.css';
 
-let searchtask = [];
+var searchtask = [];
 
 type TasksProps = {
-    displaytodo: { id: number; task: string,done:boolean }[]
     filterText: string
     toggle: boolean
+    displayTodo: { id: number; task: string,done:boolean }[]
+    setTodo:Function
   }
-  export default function Tasks ({displaytodo, filterText, toggle}: TasksProps){
+  export default function Tasks ({displayTodo, filterText, toggle,setTodo}: TasksProps){
 
-    if (toggle) displaytodo = [];
+    if (toggle) displayTodo = [];
     const searchQuery = filterText.toLowerCase();
     searchtask = [];
-    for (let j = 0; j < displaytodo.length; j++) {
-      let str = displaytodo[j];
-      let t = str.task;
+    for (var j = 0; j < displayTodo.length; j++) {
+      var str = displayTodo[j];
+      var t = str.task;
   
       if (t.includes(searchQuery)) {
-        console.log(t);
         searchtask.push(str);
       }
     }
-    displaytodo = searchtask.slice(0);
+    displayTodo = searchtask.slice(0);
     return (
       <div>
         <div className="tasks">
-          {displaytodo.map((todo) => {
-            return <ToDo todo={todo} filtertext={filterText} toggle={toggle}/>;
+          {displayTodo.map((todo) => {
+            return <ToDo todo={todo} filtertext={filterText} toggle={toggle} setTodo={setTodo}/>;
           })}
         </div>
       </div>

@@ -1,18 +1,24 @@
 import '../App.css';
 import * as React from 'react';
-import { useState } from "react";
 var todo:{ id: number; task: string,done:boolean }[] = [];
-export default function AddTask() {
-    const [newtask, settask] = useState("");
+type AddProps = {
+  newTask: string
+  
+  setTask:Function
+  displayTodo: { id: number; task: string,done:boolean }[]
+  setTodo:Function
+}
+export default function AddTask ({newTask, setTask,displayTodo,setTodo}: AddProps){
+
     const storedtodo:{ id: number; task: string,done:boolean }[] = JSON.parse(localStorage.getItem("todo")!);
     todo = storedtodo.slice(0);
     const handle_add_task = () => {
-      let new_id:number = parseInt(localStorage.getItem("ids")!) + 1;
-      todo.push({ id: new_id, task: newtask, done: false });
+      var new_id:number = parseInt(localStorage.getItem("ids")!) + 1;
+      todo.push({ id: new_id, task: newTask, done: false });
       localStorage.setItem("todo", JSON.stringify(todo));
   
       localStorage.setItem("ids", new_id.toString());
-      window.location.reload();
+      setTodo(todo);
     };
     return (
       <div>
@@ -28,8 +34,8 @@ export default function AddTask() {
                   type="text"
                   id="taskName"
                   name="task name"
-                  value={newtask}
-                  onChange={(e) => settask(e.target.value)}
+                  value={newTask}
+                  onChange={(e) => setTask(e.target.value)}
                 />
               </td>
               <td>

@@ -5,9 +5,10 @@ import Tasks from './Tasks';
 import SearchBar from './SearchBar';
 
 type ToDoSpaceProps = {
-    displaytodo: { id: number; task: string,done:boolean }[]
+  displayTodo: { id: number; task: string,done:boolean }[]
+  setTodo:Function
   }
-export default function ToDoSpace({displaytodo}: ToDoSpaceProps){
+export default function ToDoSpace({displayTodo,setTodo}: ToDoSpaceProps){
     const [filterText, setFilterText] = useState("");
     const [toggle, settoggle] = useState(false);
   
@@ -21,9 +22,10 @@ export default function ToDoSpace({displaytodo}: ToDoSpaceProps){
         />
   
         <Tasks
-          displaytodo={displaytodo}
+          displayTodo={displayTodo}
           filterText={filterText}
           toggle={toggle}
+          setTodo={setTodo}
         />
       </div>
     );

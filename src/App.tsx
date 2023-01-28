@@ -1,11 +1,11 @@
 
 import './App.css';
 import * as React from 'react';
-import {render} from 'react-dom';
+import { useState } from "react";
 import ToDoSpace from './components/ToDoSpace';
 import AddTask from './components/AddTask';
 import Footer from './components/Footer';
-let s:string[] = [];
+var s:string[] = [];
 
 if (localStorage.length === 0) {
   var z:number=0;
@@ -13,11 +13,11 @@ if (localStorage.length === 0) {
 
   localStorage.setItem("todo", JSON.stringify(s));
 }
-window.onload = (event) => {
-  App();
-};
 function App() {
-  let storedtodo = JSON.parse(localStorage.getItem("todo")!);
+  const [newTask, setTask] = useState("");
+  
+  const [storedTodo, setTodo] = useState(JSON.parse(localStorage.getItem("todo")!));
+  
   var v={ id: 1, task: "ddd",done:true };
   return (
     <div>
@@ -26,12 +26,12 @@ function App() {
       </div>
       <div className="componant">
       
-      <AddTask />
+      <AddTask  newTask={newTask} setTask={setTask} displayTodo={storedTodo} setTodo={setTodo}/>
       </div>
       <hr></hr>
 
       <div>
-        <ToDoSpace displaytodo={storedtodo} />
+        <ToDoSpace displayTodo={storedTodo} setTodo={setTodo} />
       </div>
 
       <hr></hr>

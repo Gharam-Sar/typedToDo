@@ -1,11 +1,11 @@
 import '../App.css';
 import * as React from 'react';
 export default function Footer() {
-    let storedtodo = JSON.parse(localStorage.getItem("todo")!);
-    let num_todo = storedtodo.length;
-    let done = 0;
-    let notDone = 0;
-    for (let i = 0; i < storedtodo.length; i++) {
+    var storedtodo = JSON.parse(localStorage.getItem("todo")!);
+    var num_todo = storedtodo.length;
+    var done = 0;
+    var notDone = 0;
+    for (var i = 0; i < storedtodo.length; i++) {
       if (storedtodo[i].done) done++;
       else notDone++;
     }
